@@ -39,9 +39,10 @@ public class SecurityConfig {
                         // Public endpoints — no token required
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/health").permitAll()
                         // Everything else requires a valid JWT
                         .anyRequest().authenticated()
-                        .requestMatchers(HttpMethod.GET, "/health").permitAll()
+                        
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
